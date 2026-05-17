@@ -1,13 +1,23 @@
 import React from 'react';
 import { Zap, Shield, Award, QrCode, Phone, Star } from 'lucide-react';
 
+// Define sub-components at the TOP to prevent "Initialization" errors
+const FeatureCard = ({ icon, title, description }) => (
+  <div className="glass p-8 rounded-[2.5rem] border border-white/5 hover:border-yellow-500/30 transition-all duration-300 group">
+    <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-6 group-hover:bg-yellow-500 group-hover:text-black transition-all">
+      {icon}
+    </div>
+    <h3 className="text-xl font-black mb-2 uppercase tracking-tight">{title}</h3>
+    <p className="text-gray-400 text-sm font-medium leading-relaxed">{description}</p>
+  </div>
+);
+
 const Hero = ({ setActiveTab, invoices = [], currentUser }) => {
-  const totalProjects = invoices.length + 150; // Base count + actual records
-  const happyClients = new Set(invoices.map(inv => inv.customerPhone)).size + 142;
+  const totalProjects = (invoices?.length || 0) + 150;
+  const happyClients = new Set(invoices?.map(inv => inv.customerPhone)).size + 142;
 
   return (
     <div className="relative py-12 md:py-24 overflow-hidden">
-      {/* Background Glows */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-yellow-500/10 blur-[120px] -z-10 animate-pulse"></div>
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-yellow-600/10 blur-[120px] -z-10 animate-pulse delay-700"></div>
 
@@ -64,7 +74,6 @@ const Hero = ({ setActiveTab, invoices = [], currentUser }) => {
           </div>
         </div>
 
-        {/* Digital Business Card QR */}
         <div className="flex-1 w-full max-w-md">
           <div className="glass p-8 rounded-[3rem] border border-white/10 relative group hover:border-yellow-500/30 transition-all duration-500 shadow-2xl">
             <div className="absolute -top-4 -right-4 bg-yellow-500 text-black p-3 rounded-2xl shadow-xl transform rotate-12 group-hover:rotate-0 transition-transform">
@@ -125,15 +134,5 @@ const Hero = ({ setActiveTab, invoices = [], currentUser }) => {
     </div>
   );
 };
-
-const FeatureCard = ({ icon, title, description }) => (
-  <div className="glass p-8 rounded-[2.5rem] border border-white/5 hover:border-yellow-500/30 transition-all duration-300 group">
-    <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-6 group-hover:bg-yellow-500 group-hover:text-black transition-all">
-      {icon}
-    </div>
-    <h3 className="text-xl font-black mb-2 uppercase tracking-tight">{title}</h3>
-    <p className="text-gray-400 text-sm font-medium leading-relaxed">{description}</p>
-  </div>
-);
 
 export default Hero;

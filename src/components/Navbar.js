@@ -11,8 +11,17 @@ const Navbar = ({ activeTab, setActiveTab, isAdmin, currentUser, onLogout }) => 
             onClick={() => setActiveTab('home')}
           >
             <div className="relative">
-              <div className="bg-yellow-500 p-2 rounded-xl shadow-[0_0_20px_rgba(234,179,8,0.3)]">
-                <Zap className="text-black" size={24} fill="currentColor" />
+              <div className="w-12 h-12 rounded-xl overflow-hidden shadow-[0_0_20px_rgba(234,179,8,0.3)] bg-yellow-500 flex items-center justify-center">
+                <img
+                  src="/logo.jpg"
+                  alt="Mulani Electricals"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'block';
+                  }}
+                />
+                <Zap className="text-black hidden" size={24} fill="currentColor" />
               </div>
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full animate-pulse shadow-sm"></div>
             </div>
