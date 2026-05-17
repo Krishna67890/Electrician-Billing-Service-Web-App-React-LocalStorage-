@@ -56,6 +56,17 @@ function App() {
     return localStorage.getItem('mulani_voice_enabled') === 'true';
   });
 
+  // --- Voice Utility (Moved to top to fix Initialization Error) ---
+  const speak = useCallback((text) => {
+    if (!isVoiceEnabled) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
+    window.speechSynthesis.speak(utterance);
+  }, [isVoiceEnabled]);
+
+  // --- Core Effects ---
   useEffect(() => {
     localStorage.setItem('mulani_voice_enabled', isVoiceEnabled);
     if (isVoiceEnabled) {
@@ -94,16 +105,32 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    if (isVoiceEnabled) {
+      const messages = {
+        home: "I am your assistant of this Mulani Electricians website. Welcome to our premium electrical services hub in Nashik.",
+        billing: "Welcome to the Billing Section. I am here to help you generate professional invoices.",
+        history: "You are now viewing the Records. Here you can track all your past invoices.",
+        about: "Meet our expert team. Sohail Mulani, our founder, and Krishna Patil Rajput, our lead developer.",
+        dashboard: "Admin Dashboard Access. Providing you with a high-level overview of your business performance.",
+        admin: "Website Management Portal. Here you can update your service listings and product prices.",
+        login: "Secure Access Portal. Please identify yourself to enter the Mulani Electricians management system."
+      };
+      speak(messages[activeTab] || "");
+    }
+  }, [activeTab, isVoiceEnabled, speak]);
+
+  // --- Handlers ---
   const handleLogin = (user) => {
     setCurrentUser(user);
     setIsAdmin(user.role === 'admin');
     localStorage.setItem('mulani_current_user', JSON.stringify(user));
     setActiveTab('home');
-    if (isVoiceEnabled) speak(`Welcome back ${user.name || 'User'}. You have successfully logged into the Mulani Electricals portal.`);
+    if (isVoiceEnabled) speak(`Welcome back ${user.name || 'User'}.`);
   };
 
   const handleLogout = () => {
-    if (isVoiceEnabled) speak("Logging out. Thank you for using Mulani Electricals. Have a safe day.");
+    if (isVoiceEnabled) speak("Logging out. Thank you for using Mulani Electricians.");
     setCurrentUser(null);
     setIsAdmin(false);
     localStorage.removeItem('mulani_current_user');
@@ -111,101 +138,48 @@ function App() {
   };
 
   const updateServices = (newServices) => {
-    try {
-      setServices(newServices);
-      localStorage.setItem('electrician_services', JSON.stringify(newServices));
-    } catch (e) {
-      alert("Storage limit reached! Try removing some images or old invoices.");
-      console.error("LocalStorage Error:", e);
-    }
+    setServices(newServices);
+    localStorage.setItem('electrician_services', JSON.stringify(newServices));
   };
 
   const updateProducts = (newProducts) => {
-    try {
-      setProducts(newProducts);
-      localStorage.setItem('electrician_products', JSON.stringify(newProducts));
-    } catch (e) {
-      alert("Storage limit reached!");
-      console.error("LocalStorage Error:", e);
-    }
+    setProducts(newProducts);
+    localStorage.setItem('electrician_products', JSON.stringify(newProducts));
   };
 
   const saveInvoice = (invoice) => {
-    try {
-      // Add user ID to invoice for filtering
-      const invoiceWithUser = { ...invoice, userId: currentUser?.id || 'guest' };
-      const updated = [invoiceWithUser, ...savedInvoices];
-      setSavedInvoices(updated);
-      localStorage.setItem('electrician_invoices', JSON.stringify(updated));
-      setSelectedInvoice(invoiceWithUser);
-      setActiveTab('preview');
-      if (isVoiceEnabled) speak("Invoice saved successfully. You can now preview, print or share it as a P D F.");
-    } catch (e) {
-      alert("Could not save invoice. Local storage is full.");
-      console.error("LocalStorage Error:", e);
-    }
+    const invoiceWithUser = { ...invoice, userId: currentUser?.id || 'guest' };
+    const updated = [invoiceWithUser, ...savedInvoices];
+    setSavedInvoices(updated);
+    localStorage.setItem('electrician_invoices', JSON.stringify(updated));
+    setSelectedInvoice(invoiceWithUser);
+    setActiveTab('preview');
+    if (isVoiceEnabled) speak("Invoice saved successfully.");
   };
 
   const toggleInvoiceStatus = (id) => {
-    try {
-      const updated = savedInvoices.map(inv =>
-        inv.id === id ? { ...inv, status: inv.status === 'Paid' ? 'Pending' : 'Paid' } : inv
-      );
-      setSavedInvoices(updated);
-      localStorage.setItem('electrician_invoices', JSON.stringify(updated));
-    } catch (e) {
-      console.error("LocalStorage Error:", e);
-    }
+    const updated = savedInvoices.map(inv =>
+      inv.id === id ? { ...inv, status: inv.status === 'Paid' ? 'Pending' : 'Paid' } : inv
+    );
+    setSavedInvoices(updated);
+    localStorage.setItem('electrician_invoices', JSON.stringify(updated));
   };
 
   const deleteInvoice = (id) => {
-    try {
-      const updated = savedInvoices.filter(inv => inv.id !== id);
-      setSavedInvoices(updated);
-      localStorage.setItem('electrician_invoices', JSON.stringify(updated));
-    } catch (e) {
-      console.error("LocalStorage Error:", e);
-    }
+    const updated = savedInvoices.filter(inv => inv.id !== id);
+    setSavedInvoices(updated);
+    localStorage.setItem('electrician_invoices', JSON.stringify(updated));
   };
 
   const updateInvoices = (newInvoices) => {
-    try {
-      setSavedInvoices(newInvoices);
-      localStorage.setItem('electrician_invoices', JSON.stringify(newInvoices));
-    } catch (e) {
-      alert("Storage limit reached!");
-      console.error("LocalStorage Error:", e);
-    }
+    setSavedInvoices(newInvoices);
+    localStorage.setItem('electrician_invoices', JSON.stringify(newInvoices));
   };
 
   const viewInvoice = (invoice) => {
     setSelectedInvoice(invoice);
     setActiveTab('preview');
   };
-
-  const speak = useCallback((text) => {
-    if (!isVoiceEnabled) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 0.9;
-    utterance.pitch = 1;
-    window.speechSynthesis.speak(utterance);
-  }, [isVoiceEnabled]);
-
-  useEffect(() => {
-    if (isVoiceEnabled) {
-      const messages = {
-        home: "I am your assistant of this Mulani Electricians website. Welcome to our premium electrical services hub in Nashik. We specialize in house wiring and smart home setups.",
-        billing: "Welcome to the Billing Section. I am here to help you generate professional invoices. You can select items from our catalog or enter custom work details.",
-        history: "You are now viewing the Records. Here you can track all your past invoices, check payment statuses, and manage your financial history securely.",
-        about: "Meet our expert team. Sohail Mulani, our founder with over 10 years of experience, and Krishna Patil Rajput, our lead developer who built this advanced platform.",
-        dashboard: "Admin Dashboard Access. I am providing you with a high-level overview of your business performance, total revenue, and project analytics.",
-        admin: "Website Management Portal. Here you can update your service listings, modify product prices, and maintain the live storefront portfolio.",
-        login: "Secure Access Portal. Please identify yourself to enter the Mulani Electricians management system. Safety and privacy are our top priorities."
-      };
-      speak(messages[activeTab] || "");
-    }
-  }, [activeTab, isVoiceEnabled, speak]);
 
   if (!currentUser) {
     return (
@@ -255,7 +229,7 @@ function App() {
             <Hero setActiveTab={setActiveTab} invoices={savedInvoices} currentUser={currentUser} />
             <Services services={services} />
 
-            {/* Live Portfolio - Shows only types of work done (Privacy Safe) */}
+            {/* Live Portfolio */}
             <section className="py-20 border-t border-white/5">
               <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
                 <div>
@@ -273,15 +247,6 @@ function App() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {savedInvoices.filter(inv => inv.status === 'Paid').slice(0, 4).map((inv, i) => (
                   <div key={i} className="glass p-6 rounded-3xl border border-white/5 hover:border-yellow-500/30 transition-all group relative">
-                    {isAdmin && (
-                      <button
-                        onClick={() => deleteInvoice(inv.id)}
-                        className="absolute top-4 right-4 p-2 bg-red-500/10 text-red-500 rounded-xl opacity-0 group-hover:opacity-100 transition-all hover:bg-red-500 hover:text-white z-10"
-                        title="Delete from history"
-                      >
-                        <Trash2 size={14} />
-                      </button>
-                    )}
                     <p className="text-[10px] font-black text-yellow-500 uppercase tracking-widest mb-2">Completed</p>
                     <h4 className="font-bold text-white group-hover:text-yellow-500 transition-colors truncate">
                       {inv.items[0]?.name || "Electrical Work"}
@@ -289,41 +254,22 @@ function App() {
                     <p className="text-gray-500 text-xs mt-1">{inv.date}</p>
                   </div>
                 ))}
-                {savedInvoices.filter(inv => inv.status === 'Paid').length === 0 && (
-                   <div className="col-span-full py-12 text-center glass rounded-3xl border border-dashed border-white/10">
-                      <p className="text-gray-500 font-bold uppercase tracking-widest text-xs">Waiting for first project completion...</p>
-                   </div>
-                )}
               </div>
             </section>
+
             <section className="mt-16 glass p-8 rounded-[2.5rem] text-center border-yellow-500/20 relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-500/10 blur-3xl -z-10 group-hover:bg-yellow-500/20 transition-all duration-700"></div>
               <h2 className="text-3xl font-black mb-4 gold-text-gradient uppercase tracking-tighter">24/7 Emergency Service Available</h2>
-              <p className="text-gray-400 mb-6 uppercase tracking-[0.3em] text-xs font-bold">Expert Solutions • Guaranteed Safety</p>
               <div className="flex flex-wrap justify-center gap-6">
-                <a href="tel:7498045041" className="bg-yellow-500 hover:bg-yellow-600 text-black font-black py-4 px-10 rounded-2xl transition-all flex items-center gap-3 shadow-[0_10px_20px_-5px_rgba(234,179,8,0.3)] hover:scale-105">
+                <a href="tel:7498045041" className="bg-yellow-500 hover:bg-yellow-600 text-black font-black py-4 px-10 rounded-2xl transition-all flex items-center gap-3">
                   <Phone size={20} /> CALL SOHAIL
-                </a>
-                <a href={`https://wa.me/917498045041?text=${encodeURIComponent(
-                  "*EMERGENCY ASSISTANCE REQUESTED*\n" +
-                  "--------------------------\n" +
-                  "Respected Sohail... I want to talk about your service.. I need urgent electrical assistance."
-                )}`} target="_blank" rel="noreferrer" className="bg-green-600 hover:bg-green-700 text-white font-black py-4 px-10 rounded-2xl transition-all flex items-center gap-3 shadow-[0_10px_20px_-5px_rgba(22,163,74,0.3)] hover:scale-105">
-                  WHATSAPP NOW
                 </a>
               </div>
             </section>
           </>
         )}
 
-        {activeTab === 'dashboard' && isAdmin && (
-          <Dashboard invoices={savedInvoices} />
-        )}
-
-        {activeTab === 'billing' && (
-          <BillingForm onSave={saveInvoice} catalog={products} />
-        )}
-
+        {activeTab === 'dashboard' && isAdmin && <Dashboard invoices={savedInvoices} />}
+        {activeTab === 'billing' && <BillingForm onSave={saveInvoice} catalog={products} />}
         {activeTab === 'history' && (
           <SavedBills
             invoices={isAdmin ? savedInvoices : savedInvoices.filter(inv => inv.userId === currentUser?.id)}
@@ -332,35 +278,16 @@ function App() {
             onDelete={deleteInvoice}
           />
         )}
-
         {activeTab === 'preview' && selectedInvoice && (
           <div className="max-w-4xl mx-auto">
-             {isVoiceEnabled && (
-               <div className="hidden">
-                 {(() => {
-                    speak("Now showing the invoice preview. You can review the items, total amount, and professional branding before finalization.");
-                    return null;
-                 })()}
-               </div>
-             )}
-             <button
-              onClick={() => setActiveTab('history')}
-              className="mb-6 text-yellow-500 hover:text-white flex items-center gap-2 no-print font-bold transition-all group"
-            >
-              <span className="group-hover:-translate-x-1 transition-transform">←</span> BACK TO HISTORY
+             <button onClick={() => setActiveTab('history')} className="mb-6 text-yellow-500 hover:text-white flex items-center gap-2 font-bold transition-all">
+              ← BACK TO HISTORY
             </button>
-            <InvoicePreview
-              invoice={selectedInvoice}
-              onDelete={deleteInvoice}
-              setActiveTab={setActiveTab}
-            />
+            <InvoicePreview invoice={selectedInvoice} onDelete={deleteInvoice} setActiveTab={setActiveTab} />
           </div>
         )}
-
         {activeTab === 'about' && <About />}
-
         {activeTab === 'login' && <Login onLogin={handleLogin} />}
-
         {activeTab === 'admin' && isAdmin && (
           <AdminServices
             services={services}
@@ -374,59 +301,11 @@ function App() {
       </main>
 
       <footer className="mt-auto py-12 border-t border-gray-900 bg-black/40 no-print backdrop-blur-sm">
-        <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
-          <div className="text-center md:text-left">
-            <h3 className="text-2xl font-black text-yellow-500 mb-6 tracking-tighter uppercase">Mulani Electricals</h3>
-            <p className="text-gray-400 font-medium leading-relaxed">Providing high-end electrical solutions in Nashik. We prioritize safety and modern aesthetics.</p>
-            <div className="flex flex-col gap-2 mt-6">
-              <button
-                onClick={() => setActiveTab('about')}
-                className="flex items-center gap-2 text-yellow-500/70 hover:text-yellow-500 text-xs font-black uppercase tracking-widest transition"
-              >
-                <Info size={16} /> About The Team
-              </button>
-              {isAdmin ? (
-                 <button onClick={handleLogout} className="flex items-center gap-2 text-red-500 hover:text-red-400 text-xs font-black uppercase tracking-widest transition group">
-                  <LogOut size={16} className="group-hover:translate-x-1 transition-transform" /> LOGOUT SESSION
-                 </button>
-              ) : (
-                <button onClick={() => setActiveTab('login')} className="flex items-center gap-2 text-gray-600 hover:text-yellow-500 text-xs font-black uppercase tracking-widest transition">
-                  <ShieldCheck size={16} /> SECURE ADMIN ACCESS
-                </button>
-              )}
-            </div>
-          </div>
-          <div className="text-center md:text-left">
-            <h4 className="font-black text-sm uppercase tracking-[0.2em] mb-6 text-gray-500">Contact Details</h4>
-            <ul className="text-gray-300 space-y-4">
-              <li className="flex items-center justify-center md:justify-start gap-3 group cursor-pointer">
-                <div className="bg-yellow-500/10 p-2 rounded-lg group-hover:bg-yellow-500 group-hover:text-black transition-colors">
-                  <Phone size={18} />
-                </div>
-                <span className="font-bold">7498045041</span>
-              </li>
-              <li className="flex items-center justify-center md:justify-start gap-3 group cursor-pointer">
-                <div className="bg-yellow-500/10 p-2 rounded-lg group-hover:bg-yellow-500 group-hover:text-black transition-colors">
-                  <MapPin size={18} />
-                </div>
-                <span className="font-bold">Nashik, Maharashtra</span>
-              </li>
-            </ul>
-          </div>
-          <div className="text-center md:text-left">
-            <h4 className="font-black text-sm uppercase tracking-[0.2em] mb-6 text-gray-500">Professionalism</h4>
-            <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-              {['Licensed', '24/7 Service', 'Quality Parts', 'Warranty'].map(tag => (
-                <span key={tag} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-black uppercase tracking-tighter text-gray-400">
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <p className="mt-6 text-xs text-gray-500 font-medium italic">"Bringing light to your life since 2015."</p>
-          </div>
-        </div>
-        <div className="text-center mt-12 text-gray-700 text-[10px] font-black uppercase tracking-[0.4em] border-t border-gray-900/50 pt-10">
-          © {new Date().getFullYear()} Sohail Mulani | Developed for Premium Business Operations
+        <div className="container mx-auto px-4 text-center">
+          <h3 className="text-2xl font-black text-yellow-500 mb-2 tracking-tighter uppercase">Mulani Electricals</h3>
+          <p className="text-gray-700 text-[10px] font-black uppercase tracking-[0.4em]">
+            © {new Date().getFullYear()} Sohail Mulani | Developed for Premium Business Operations
+          </p>
         </div>
       </footer>
     </div>
