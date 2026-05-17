@@ -316,7 +316,13 @@ const AdminServices = ({ services, onUpdate, products, onUpdateProducts, invoice
                     <>
                       <button onClick={() => {
                         setEditingId(service.id);
-                        setEditForm({ title: service.title, description: service.description, price: service.price || '', image: service.image || '' });
+                        setEditForm({
+                          title: service.title,
+                          description: service.description,
+                          price: service.price || '',
+                          image: service.image || '',
+                          features: service.features || ''
+                        });
                       }} className="flex-1 bg-white/5 text-gray-400 hover:text-yellow-500 hover:bg-yellow-500/10 py-2 rounded-xl font-bold flex items-center justify-center gap-1 transition-all"><Edit2 size={16} /> Edit</button>
                       <button onClick={() => onUpdate(services.filter(s => s.id !== service.id))} className="bg-red-500/10 text-red-500 p-2 rounded-xl hover:bg-red-500 hover:text-white transition-all"><Trash2 size={18} /></button>
                     </>

@@ -63,7 +63,7 @@ function App() {
     } else {
       window.speechSynthesis.cancel();
     }
-  }, [isVoiceEnabled]);
+  }, [isVoiceEnabled, speak]);
 
   useEffect(() => {
     // Load User Session
