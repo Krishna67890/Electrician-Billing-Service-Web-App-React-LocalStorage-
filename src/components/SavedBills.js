@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Eye, Search, Calendar, User, IndianRupee, Trash2, Filter, CheckCircle2, Clock } from 'lucide-react';
+import { Eye, Search, Calendar, IndianRupee, Trash2, Filter, CheckCircle2, Clock } from 'lucide-react';
 
 const SavedBills = ({ invoices, onView, onToggleStatus, onDelete }) => {
   const [searchTerm, setSearchTerm] = useState('');

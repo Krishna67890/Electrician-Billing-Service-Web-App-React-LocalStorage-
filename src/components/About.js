@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, Code, Zap, Shield, Info, ExternalLink, Github, Instagram } from 'lucide-react';
+import { User, Code, Zap, Shield, Info, Github, Instagram } from 'lucide-react';
 
 const About = () => {
   return (
@@ -53,10 +53,10 @@ const About = () => {
                 A passionate software engineer specializing in building premium business management platforms. Krishna designed this application to streamline Mulani Electricals' operations, combining modern UI/UX with robust financial tracking and customer engagement tools.
               </p>
               <div className="flex gap-4">
-                <a href="#" className="p-3 bg-white/5 rounded-xl hover:bg-white/10 transition-all text-gray-400 hover:text-white">
+                <a href="https://github.com" target="_blank" rel="noreferrer" className="p-3 bg-white/5 rounded-xl hover:bg-white/10 transition-all text-gray-400 hover:text-white">
                   <Github size={20} />
                 </a>
-                <a href="#" className="p-3 bg-white/5 rounded-xl hover:bg-white/10 transition-all text-gray-400 hover:text-pink-500">
+                <a href="https://instagram.com" target="_blank" rel="noreferrer" className="p-3 bg-white/5 rounded-xl hover:bg-white/10 transition-all text-gray-400 hover:text-pink-500">
                   <Instagram size={20} />
                 </a>
               </div>

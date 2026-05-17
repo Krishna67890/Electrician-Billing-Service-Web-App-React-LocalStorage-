@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Trash2, Save, IndianRupee, Search, Package } from 'lucide-react';
+import { Plus, Trash2, Save, IndianRupee, Package } from 'lucide-react';
 
 const BillingForm = ({ onSave, catalog = [] }) => {
   const [formData, setFormData] = useState({
@@ -13,7 +13,7 @@ const BillingForm = ({ onSave, catalog = [] }) => {
     status: 'Pending'
   });
 
-  const [searchTerm, setSearchTerm] = useState('');
+  // Removed searchTerm state as it was unused
   const [activeItemIndex, setActiveItemIndex] = useState(null);
 
   useEffect(() => {

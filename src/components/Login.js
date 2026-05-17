@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Lock, User, Zap, Mail, UserPlus, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Lock, User, Zap, Mail, ArrowRight, ShieldCheck } from 'lucide-react';
 
 const Login = ({ onLogin }) => {
   const [loginMode, setLoginMode] = useState('user'); // 'user' or 'admin'

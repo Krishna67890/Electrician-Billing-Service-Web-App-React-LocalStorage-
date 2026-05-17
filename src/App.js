@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Services from './components/Services';
@@ -52,7 +52,18 @@ function App() {
   const [products, setProducts] = useState(DEFAULT_PRODUCTS);
   const [isAdmin, setIsAdmin] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  const [isVoiceEnabled, setIsVoiceEnabled] = useState(false);
+  const [isVoiceEnabled, setIsVoiceEnabled] = useState(() => {
+    return localStorage.getItem('mulani_voice_enabled') === 'true';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('mulani_voice_enabled', isVoiceEnabled);
+    if (isVoiceEnabled) {
+      speak("Voice assistant is now active.");
+    } else {
+      window.speechSynthesis.cancel();
+    }
+  }, [isVoiceEnabled]);
 
   useEffect(() => {
     // Load User Session
@@ -88,9 +99,11 @@ function App() {
     setIsAdmin(user.role === 'admin');
     localStorage.setItem('mulani_current_user', JSON.stringify(user));
     setActiveTab('home');
+    if (isVoiceEnabled) speak(`Welcome back ${user.name || 'User'}. You have successfully logged into the Mulani Electricals portal.`);
   };
 
   const handleLogout = () => {
+    if (isVoiceEnabled) speak("Logging out. Thank you for using Mulani Electricals. Have a safe day.");
     setCurrentUser(null);
     setIsAdmin(false);
     localStorage.removeItem('mulani_current_user');
@@ -126,6 +139,7 @@ function App() {
       localStorage.setItem('electrician_invoices', JSON.stringify(updated));
       setSelectedInvoice(invoiceWithUser);
       setActiveTab('preview');
+      if (isVoiceEnabled) speak("Invoice saved successfully. You can now preview, print or share it as a P D F.");
     } catch (e) {
       alert("Could not save invoice. Local storage is full.");
       console.error("LocalStorage Error:", e);
@@ -169,14 +183,14 @@ function App() {
     setActiveTab('preview');
   };
 
-  const speak = (text) => {
+  const speak = useCallback((text) => {
     if (!isVoiceEnabled) return;
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = 0.9;
     utterance.pitch = 1;
     window.speechSynthesis.speak(utterance);
-  };
+  }, [isVoiceEnabled]);
 
   useEffect(() => {
     if (isVoiceEnabled) {
@@ -191,7 +205,7 @@ function App() {
       };
       speak(messages[activeTab] || "");
     }
-  }, [activeTab, isVoiceEnabled]);
+  }, [activeTab, isVoiceEnabled, speak]);
 
   if (!currentUser) {
     return (
@@ -321,6 +335,14 @@ function App() {
 
         {activeTab === 'preview' && selectedInvoice && (
           <div className="max-w-4xl mx-auto">
+             {isVoiceEnabled && (
+               <div className="hidden">
+                 {(() => {
+                    speak("Now showing the invoice preview. You can review the items, total amount, and professional branding before finalization.");
+                    return null;
+                 })()}
+               </div>
+             )}
              <button
               onClick={() => setActiveTab('history')}
               className="mb-6 text-yellow-500 hover:text-white flex items-center gap-2 no-print font-bold transition-all group"

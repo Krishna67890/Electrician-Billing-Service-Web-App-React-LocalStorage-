@@ -1,5 +1,5 @@
 import React from 'react';
-import { Zap, Shield, Award, Users, QrCode, Phone, Star } from 'lucide-react';
+import { Zap, Shield, Award, QrCode, Phone, Star } from 'lucide-react';
 
 const Hero = ({ setActiveTab, invoices = [], currentUser }) => {
   const totalProjects = invoices.length + 150; // Base count + actual records
