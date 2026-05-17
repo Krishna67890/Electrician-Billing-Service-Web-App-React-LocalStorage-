@@ -17,7 +17,7 @@ const BrandLogo = ({ size = 40, className = "" }) => (
   <div className={`relative ${className}`}>
     <div className="w-full h-full bg-yellow-500 rounded-2xl flex items-center justify-center shadow-xl overflow-hidden">
       <img
-        src="/logo.jpg"
+        src="/website%20logo.jpeg"
         alt="Logo"
         className="w-full h-full object-cover"
         onError={(e) => {

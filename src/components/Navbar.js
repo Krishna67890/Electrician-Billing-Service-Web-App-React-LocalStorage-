@@ -13,7 +13,7 @@ const Navbar = ({ activeTab, setActiveTab, isAdmin, currentUser, onLogout }) => 
             <div className="relative">
               <div className="w-12 h-12 rounded-xl overflow-hidden shadow-[0_0_20px_rgba(234,179,8,0.3)] bg-yellow-500 flex items-center justify-center">
                 <img
-                  src="/logo.jpg"
+                  src="/website%20logo.jpeg"
                   alt="Mulani Electricals"
                   className="w-full h-full object-cover"
                   onError={(e) => {
