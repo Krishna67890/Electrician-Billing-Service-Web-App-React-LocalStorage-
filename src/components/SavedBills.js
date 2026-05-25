@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Eye, Search, Calendar, IndianRupee, Trash2, Filter, CheckCircle2, Clock } from 'lucide-react';
 
-const SavedBills = ({ invoices, onView, onToggleStatus, onDelete }) => {
+const SavedBills = ({ invoices, onView, onToggleStatus, onDelete, isAdmin }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filter, setFilter] = useState('All'); // All, Paid, Pending
+  const [filter, setFilter] = useState('All'); // All, Paid, Pending, Request
 
   const filteredInvoices = invoices.filter(inv => {
     const matchesSearch = inv.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -11,6 +11,15 @@ const SavedBills = ({ invoices, onView, onToggleStatus, onDelete }) => {
     const matchesFilter = filter === 'All' || inv.status === filter;
     return matchesSearch && matchesFilter;
   });
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'Paid': return 'bg-green-500/20 text-green-500';
+      case 'Pending': return 'bg-red-500/20 text-red-500';
+      case 'Request': return 'bg-blue-500/20 text-blue-500';
+      default: return 'bg-gray-500/20 text-gray-500';
+    }
+  };
 
   return (
     <div className="max-w-6xl mx-auto animate-in fade-in duration-700">
@@ -33,7 +42,7 @@ const SavedBills = ({ invoices, onView, onToggleStatus, onDelete }) => {
           </div>
 
           <div className="flex bg-surface p-1 rounded-2xl border border-white/5 overflow-x-auto no-scrollbar">
-            {['All', 'Paid', 'Pending'].map((f) => (
+            {['All', 'Paid', 'Pending', 'Request'].map((f) => (
               <button
                 key={f}
                 onClick={() => setFilter(f)}
@@ -64,9 +73,7 @@ const SavedBills = ({ invoices, onView, onToggleStatus, onDelete }) => {
               className="glass p-8 rounded-[2.5rem] border border-white/5 hover:border-yellow-500/30 transition-all group relative overflow-hidden"
             >
               {/* Status Badge */}
-              <div className={`absolute top-0 right-0 px-6 py-2 rounded-bl-3xl text-[10px] font-black uppercase tracking-widest ${
-                invoice.status === 'Paid' ? 'bg-green-500/20 text-green-500' : 'bg-red-500/20 text-red-500'
-              }`}>
+              <div className={`absolute top-0 right-0 px-6 py-2 rounded-bl-3xl text-[10px] font-black uppercase tracking-widest ${getStatusColor(invoice.status)}`}>
                 {invoice.status}
               </div>
 
@@ -108,27 +115,36 @@ const SavedBills = ({ invoices, onView, onToggleStatus, onDelete }) => {
                 </div>
 
                 <div className="flex gap-2">
-                  <button
-                    onClick={(e) => { e.stopPropagation(); onToggleStatus(invoice.id); }}
-                    title={invoice.status === 'Paid' ? "Mark as Pending" : "Mark as Paid"}
-                    className={`p-3 rounded-2xl transition-all ${
-                      invoice.status === 'Paid' ? 'bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white' : 'bg-green-500/10 text-green-500 hover:bg-green-500 hover:text-white'
-                    }`}
-                  >
-                    {invoice.status === 'Paid' ? <Clock size={20} /> : <CheckCircle2 size={20} />}
-                  </button>
+                  {isAdmin && (
+                    <button
+                      onClick={(e) => { e.stopPropagation(); onToggleStatus(invoice.id); }}
+                      title={
+                        invoice.status === 'Request' ? "Approve Request" :
+                        invoice.status === 'Pending' ? "Mark as Paid" : "Mark as Pending"
+                      }
+                      className={`p-3 rounded-2xl transition-all ${
+                        invoice.status === 'Paid' ? 'bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white' :
+                        invoice.status === 'Request' ? 'bg-blue-500/10 text-blue-500 hover:bg-blue-500 hover:text-white' :
+                        'bg-green-500/10 text-green-500 hover:bg-green-500 hover:text-white'
+                      }`}
+                    >
+                      {invoice.status === 'Paid' ? <Clock size={20} /> : <CheckCircle2 size={20} />}
+                    </button>
+                  )}
                   <button
                     onClick={(e) => { e.stopPropagation(); onView(invoice); }}
                     className="bg-yellow-500/10 p-3 rounded-2xl text-yellow-500 hover:bg-yellow-500 hover:text-black transition-all"
                   >
                     <Eye size={20} />
                   </button>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); if(window.confirm('Delete this bill?')) onDelete(invoice.id); }}
-                    className="bg-red-500/10 p-3 rounded-2xl text-red-500 hover:bg-red-500 hover:text-white transition-all"
-                  >
-                    <Trash2 size={20} />
-                  </button>
+                  {(isAdmin || invoice.status === 'Paid') && (
+                    <button
+                      onClick={(e) => { e.stopPropagation(); if(window.confirm('Delete this bill?')) onDelete(invoice.id); }}
+                      className="bg-red-500/10 p-3 rounded-2xl text-red-500 hover:bg-red-500 hover:text-white transition-all"
+                    >
+                      <Trash2 size={20} />
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

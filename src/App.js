@@ -140,10 +140,49 @@ function App() {
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} isAdmin={isAdmin} currentUser={currentUser} onLogout={handleLogout} />
 
       <main className="flex-grow container mx-auto px-4 py-8">
+        {activeTab === 'billing' && (
+          <BillingForm
+            onSave={(inv) => {
+              const invoiceWithUser = { ...inv, userId: currentUser?.id };
+              const updated = [invoiceWithUser, ...savedInvoices];
+              setSavedInvoices(updated);
+              localStorage.setItem('electrician_invoices', JSON.stringify(updated));
+              setSelectedInvoice(invoiceWithUser);
+              setActiveTab('preview');
+              speak("Bill saved.");
+            }}
+            catalog={[
+              ...products,
+              ...services.map(s => ({
+                id: s.id,
+                name: s.title,
+                rate: parseFloat(s.price) || 0,
+                isService: true
+              }))
+            ]}
+            isAdmin={isAdmin}
+          />
+        )}
+
         {activeTab === 'home' && (
           <div className="space-y-12">
-            <Hero setActiveTab={setActiveTab} invoices={savedInvoices} currentUser={currentUser} />
-            <Services services={services} />
+            <Hero
+              setActiveTab={setActiveTab}
+              invoices={savedInvoices.filter(inv => inv.status !== 'Request')}
+              currentUser={currentUser}
+            />
+            <Services
+              services={services}
+              currentUser={currentUser}
+              invoices={savedInvoices}
+              onInquiry={(inquiry) => {
+                const updated = [inquiry, ...savedInvoices];
+                setSavedInvoices(updated);
+                localStorage.setItem('electrician_invoices', JSON.stringify(updated));
+                speak("Order request sent to WhatsApp.");
+                setActiveTab('history');
+              }}
+            />
             <section className="glass p-8 rounded-[2.5rem] text-center border-yellow-500/20">
               <h2 className="text-3xl font-black mb-4 gold-text-gradient uppercase tracking-tighter">24/7 Emergency Support</h2>
               <a href="tel:7498045041" className="inline-flex bg-yellow-500 hover:bg-yellow-600 text-black font-black py-4 px-10 rounded-2xl transition-all items-center gap-3">
@@ -153,26 +192,26 @@ function App() {
           </div>
         )}
 
-        {activeTab === 'dashboard' && isAdmin && <Dashboard invoices={savedInvoices} />}
-
-        {activeTab === 'billing' && (
-          <BillingForm
-            onSave={(inv) => {
-              const updated = [inv, ...savedInvoices];
-              setSavedInvoices(updated);
-              localStorage.setItem('electrician_invoices', JSON.stringify(updated));
-              setSelectedInvoice(inv);
-              setActiveTab('preview');
-              speak("Bill saved.");
-            }}
-            catalog={products}
-          />
-        )}
 
         {activeTab === 'history' && (
           <SavedBills
             invoices={isAdmin ? savedInvoices : savedInvoices.filter(i => i.userId === currentUser.id)}
             onView={(inv) => { setSelectedInvoice(inv); setActiveTab('preview'); }}
+            isAdmin={isAdmin}
+            onToggleStatus={(id) => {
+              const updated = savedInvoices.map(inv => {
+                if (inv.id !== id) return inv;
+                let nextStatus;
+                if (inv.status === 'Request' || inv.status === 'Inquiry') nextStatus = 'Pending';
+                else if (inv.status === 'Pending') nextStatus = 'Paid';
+                else nextStatus = 'Pending';
+                return { ...inv, status: nextStatus };
+              });
+              setSavedInvoices(updated);
+              localStorage.setItem('electrician_invoices', JSON.stringify(updated));
+              const current = updated.find(i => i.id === id);
+              speak(`Status updated to ${current.status}`);
+            }}
             onDelete={(id) => {
               const updated = savedInvoices.filter(i => i.id !== id);
               setSavedInvoices(updated);
@@ -182,7 +221,25 @@ function App() {
         )}
 
         {activeTab === 'preview' && selectedInvoice && (
-          <InvoicePreview invoice={selectedInvoice} setActiveTab={setActiveTab} />
+          <InvoicePreview
+            invoice={selectedInvoice}
+            setActiveTab={setActiveTab}
+            isAdmin={isAdmin}
+            onUpdateStatus={(id, status) => {
+              const updated = savedInvoices.map(inv =>
+                inv.id === id ? { ...inv, status } : inv
+              );
+              setSavedInvoices(updated);
+              localStorage.setItem('electrician_invoices', JSON.stringify(updated));
+              setSelectedInvoice(prev => ({ ...prev, status }));
+              speak(`Status updated to ${status}`);
+            }}
+            onDelete={(id) => {
+              const updated = savedInvoices.filter(i => i.id !== id);
+              setSavedInvoices(updated);
+              localStorage.setItem('electrician_invoices', JSON.stringify(updated));
+            }}
+          />
         )}
 
         {activeTab === 'about' && <About />}
