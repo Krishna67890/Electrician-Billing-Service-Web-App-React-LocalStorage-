@@ -14,10 +14,11 @@ const Login = ({ onLogin }) => {
     setError('');
 
     if (loginMode === 'admin') {
-      const adminEmail = localStorage.getItem('admin_email') || 'admin@gmail.com';
-      const adminPass = localStorage.getItem('admin_password') || 'ADMIN';
+      // Prioritize the requested admin credentials
+      const adminEmail = 'admin@gmail.com';
+      const adminPass = 'ADMIN';
 
-      if (email === adminEmail && password === adminPass) {
+      if (email.toLowerCase() === adminEmail.toLowerCase() && password === adminPass) {
         onLogin({ name: 'Surname Electricians Admin', email: adminEmail, role: 'admin', id: 'admin-001' });
       } else {
         setError('Invalid Admin Credentials');
