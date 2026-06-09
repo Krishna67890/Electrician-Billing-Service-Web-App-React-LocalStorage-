@@ -10,14 +10,14 @@ import AdminServices from './components/AdminServices';
 import Dashboard from './components/Dashboard';
 import About from './components/About';
 import { DEFAULT_SERVICES, DEFAULT_PRODUCTS } from './constants';
-import { Phone, Volume2, VolumeX, ShieldCheck, Zap, X } from 'lucide-react';
+import { Phone, Volume2, VolumeX, ShieldCheck, Zap, X, Minus, ChevronDown, ChevronUp } from 'lucide-react';
 
 // Define Logo Utility outside the component to ensure it's always ready
 const BrandLogo = ({ size = 40, className = "" }) => (
   <div className={`relative ${className}`}>
     <div className="w-full h-full bg-yellow-500 rounded-2xl flex items-center justify-center shadow-xl overflow-hidden">
       <img
-        src="/website%20logo.jpeg"
+        src="/logo.jpeg"
         alt="Logo"
         className="w-full h-full object-cover"
         onError={(e) => {
@@ -131,14 +131,14 @@ function App() {
   return (
     <div className="min-h-screen flex flex-col bg-black text-white selection:bg-yellow-500 selection:text-black">
       {/* ULTRA-MEGA SCALE PERSISTENT SALE BANNER */}
-      {showSaleBanner && (
-        <div className="bg-gradient-to-r from-blue-900 via-blue-600 to-blue-900 text-white py-16 px-6 text-center border-b-[16px] border-yellow-500 sticky top-0 z-[100] shadow-[0_40px_150px_rgba(0,0,0,1)] overflow-hidden">
+      <div className={`transition-all duration-700 ease-in-out overflow-hidden ${showSaleBanner ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0 pointer-events-none'}`}>
+        <div className="bg-gradient-to-r from-blue-900 via-blue-600 to-blue-900 text-white py-16 px-6 text-center border-b-[16px] border-yellow-500 relative z-[100] shadow-[0_40px_150px_rgba(0,0,0,1)]">
           <button
-            onClick={() => setShowSaleBanner(false)}
+            onClick={(e) => { e.stopPropagation(); setShowSaleBanner(false); }}
             className="absolute top-8 right-8 z-[110] bg-white/10 hover:bg-white/20 text-white p-4 rounded-full transition-all border border-white/20 group"
+            title="Minimise Banner"
           >
-            <X size={32} className="group-hover:scale-110" />
-            <span className="sr-only">Close</span>
+            <Minus size={32} className="group-hover:scale-110" />
           </button>
 
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-40"></div>
@@ -176,6 +176,18 @@ function App() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {!showSaleBanner && (
+        /* MINIMISED TOP BAR */
+        <div
+          onClick={() => setShowSaleBanner(true)}
+          className="bg-blue-600 text-white py-3 px-6 sticky top-0 z-[100] cursor-pointer hover:bg-blue-500 transition-colors border-b-4 border-yellow-500 shadow-xl flex items-center justify-center gap-4 group animate-in slide-in-from-top duration-300"
+        >
+          <Zap size={16} fill="currentColor" className="text-yellow-400 animate-pulse" />
+          <span className="text-xs font-black uppercase tracking-[0.4em]">Platform for Sale - ₹1,000 - Click to Expand Details</span>
+          <ChevronDown size={16} className="group-hover:translate-y-0.5 transition-transform" />
         </div>
       )}
 
@@ -299,17 +311,23 @@ function App() {
               }}
             />
 
-            <section className="glass p-8 rounded-[2.5rem] text-center border-yellow-500/20">
-              <h2 className="text-3xl font-black mb-4 gold-text-gradient uppercase tracking-tighter">24/7 Professional Service</h2>
-              <a href="tel:7498045041" className="inline-flex bg-yellow-500 hover:bg-yellow-600 text-black font-black py-4 px-10 rounded-2xl transition-all items-center gap-3">
-                <Phone size={20} /> CALL FOR SERVICE
-              </a>
-              <p className="mt-6 text-[9px] font-black text-gray-600 uppercase tracking-[0.2em]">
-                Website Development & Ownership:
-                <a href="https://www.instagram.com/krish_root_labs?igsh=YWczM2t3amUyZ3lp" target="_blank" rel="noopener noreferrer" className="ml-1 text-blue-500 hover:text-blue-400 underline transition-colors">
-                  Contact @krish_root_labs
+            <section className="glass p-10 rounded-[3rem] text-center border-yellow-500/20 shadow-2xl mt-12">
+              <span className="text-[10px] font-black text-yellow-500 uppercase tracking-[0.3em] mb-4 block">Emergency Support</span>
+              <h2 className="text-4xl font-black mb-8 gold-text-gradient uppercase tracking-tighter leading-none">24/7 Professional <br/> Electrical Service</h2>
+              <div className="flex flex-col items-center gap-6">
+                <a href="tel:+917498045041" className="inline-flex bg-yellow-500 hover:bg-yellow-600 text-black font-black py-6 px-12 rounded-2xl transition-all items-center gap-4 shadow-[0_20px_40px_-10px_rgba(234,179,8,0.5)] hover:-translate-y-1 active:scale-95 text-lg">
+                  <Phone size={24} fill="currentColor" /> CALL FOR SERVICE
                 </a>
-              </p>
+
+                <div className="w-full h-px bg-white/5 my-4"></div>
+
+                <p className="text-[9px] font-black text-gray-700 uppercase tracking-[0.4em]">
+                  Website Managed By:
+                  <a href="https://www.instagram.com/krish_root_labs?igsh=YWczM2t3amUyZ3lp" target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-500 hover:text-blue-400 underline transition-colors">
+                    @krish_root_labs
+                  </a>
+                </p>
+              </div>
             </section>
           </div>
         )}
