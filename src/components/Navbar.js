@@ -1,17 +1,18 @@
 import React from 'react';
 import { Home, FileText, History, Zap, ShieldCheck, LogOut, Info, User } from 'lucide-react';
 
-const Navbar = ({ activeTab, setActiveTab, isAdmin, currentUser, onLogout }) => {
+const Navbar = ({ activeTab, setActiveTab, isAdmin, currentUser, onLogout, onToggleBanner }) => {
   return (
     <nav className="sticky top-0 z-50 glass border-b border-gray-800 no-print">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           <div
-            className="flex items-center gap-3 cursor-pointer"
-            onClick={() => setActiveTab('home')}
+            className="flex items-center gap-3 cursor-pointer group"
+            onClick={onToggleBanner}
+            title="Click to toggle For Sale banner"
           >
             <div className="relative">
-              <div className="w-12 h-12 rounded-xl overflow-hidden shadow-[0_0_20px_rgba(234,179,8,0.3)] bg-yellow-500 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl overflow-hidden shadow-[0_0_20px_rgba(234,179,8,0.3)] bg-yellow-500 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <img
                   src="/website%20logo.jpeg"
                   alt="Surname Electricians"
