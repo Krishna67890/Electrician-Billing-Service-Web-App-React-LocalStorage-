@@ -129,6 +129,45 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-black text-white selection:bg-yellow-500 selection:text-black">
+      {/* ULTRA-MEGA SCALE PERSISTENT SALE BANNER */}
+      <div className="bg-gradient-to-r from-blue-900 via-blue-600 to-blue-900 text-white py-16 px-6 text-center border-b-[16px] border-yellow-500 sticky top-0 z-[100] shadow-[0_40px_150px_rgba(0,0,0,1)] overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-40"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        <div className="container mx-auto relative z-10">
+          <div className="flex flex-col items-center justify-center">
+            <div className="inline-flex items-center gap-6 bg-yellow-400 text-black px-10 py-3 rounded-full text-lg font-black uppercase tracking-[0.6em] animate-bounce shadow-[0_0_50px_rgba(234,179,8,0.7)] mb-10">
+              <Zap size={32} fill="currentColor" /> PLATFORM FOR SALE <Zap size={32} fill="currentColor" />
+            </div>
+
+            <h1 className="text-6xl md:text-9xl font-black uppercase tracking-tighter leading-none mb-10 text-white drop-shadow-[0_15px_15px_rgba(0,0,0,0.8)]">
+              THIS WEBSITE IS <br/>
+              <span className="text-yellow-400 drop-shadow-[0_0_40px_rgba(234,179,8,0.5)]">FOR SALE</span>
+            </h1>
+
+            <div className="flex flex-col lg:flex-row items-center gap-16 bg-black/60 backdrop-blur-2xl p-12 rounded-[4rem] border-4 border-white/20 shadow-2xl max-w-7xl w-full">
+              <div className="flex-1 text-center lg:text-left">
+                <p className="text-blue-300 text-xl font-black uppercase tracking-[0.4em] mb-6">Contact the Developer Immediately:</p>
+                <a
+                  href="https://www.instagram.com/krish_root_labs?igsh=YWczM2t3amUyZ3lp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-5xl md:text-8xl font-black text-white hover:text-yellow-400 transition-all hover:scale-105 inline-block underline decoration-yellow-400 decoration-8 underline-offset-[20px]"
+                >
+                  @krish_root_labs
+                </a>
+              </div>
+
+              <div className="hidden lg:block w-px h-48 bg-white/30"></div>
+
+              <div className="text-center">
+                <p className="text-yellow-400 text-8xl md:text-[10rem] font-black leading-none mb-4">₹1,000</p>
+                <p className="text-2xl font-black text-white uppercase tracking-[0.5em]">Fixed Price • Full Transfer</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Floating Voice Toggle */}
       <button
         onClick={() => setIsVoiceEnabled(!isVoiceEnabled)}
@@ -166,13 +205,34 @@ function App() {
 
         {activeTab === 'home' && (
           <div className="space-y-12">
-            <div className="bg-blue-600/10 border border-blue-500/20 p-4 rounded-3xl text-center animate-pulse sale-glow">
-              <p className="text-[10px] font-black text-blue-400 uppercase tracking-[0.2em]">
-                PLATFORM FOR SALE - ₹1,000 ONLY |
-                <a href="https://www.instagram.com/krish_root_labs?igsh=YWczM2t3amUyZ3lp" target="_blank" rel="noopener noreferrer" className="ml-2 text-white underline decoration-blue-500 underline-offset-4 hover:text-blue-300 transition-colors">
-                  DM @krish_root_labs TO BUY
-                </a>
-              </p>
+            {/* ULTRA-PROMINENT SALE BANNER */}
+            <div className="bg-gradient-to-r from-blue-700 via-blue-600 to-blue-700 border-y-4 border-white py-12 px-4 text-center shadow-[0_0_100px_rgba(37,99,235,0.6)] relative overflow-hidden">
+              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+              <div className="relative z-10 max-w-5xl mx-auto">
+                <h2 className="text-5xl md:text-8xl font-black text-white uppercase tracking-tighter mb-4 animate-pulse leading-none">
+                  THIS WEBSITE IS <span className="text-yellow-400">FOR SALE</span>
+                </h2>
+                <p className="text-xl md:text-3xl font-bold text-blue-100 mb-8 uppercase tracking-widest">
+                  Professional Billing & Management Platform
+                </p>
+                <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+                  <div className="bg-black/40 backdrop-blur-md border border-white/20 p-6 rounded-3xl">
+                    <p className="text-blue-300 text-xs font-black uppercase tracking-widest mb-1">Contact Developer</p>
+                    <a
+                      href="https://www.instagram.com/krish_root_labs?igsh=YWczM2t3amUyZ3lp"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-3xl md:text-5xl font-black text-white hover:text-yellow-400 transition-colors"
+                    >
+                      @krish_root_labs
+                    </a>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <span className="text-6xl md:text-8xl font-black text-yellow-400">₹1,000</span>
+                    <span className="text-sm font-black text-white uppercase tracking-[0.5em]">Fixed Price</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <Hero
@@ -287,6 +347,10 @@ function App() {
         )}
 
         {activeTab === 'about' && <About />}
+
+        {activeTab === 'dashboard' && isAdmin && (
+          <Dashboard invoices={savedInvoices} />
+        )}
 
         {activeTab === 'admin' && isAdmin && (
           <AdminServices

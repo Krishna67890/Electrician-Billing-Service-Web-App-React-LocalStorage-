@@ -72,6 +72,33 @@ const BillingForm = ({ onSave, catalog = [], isAdmin = false }) => {
           )}
         </div>
 
+        {/* FOR SALE BANNER - USER PANEL SPECIAL */}
+        <div className="mb-12">
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+            <div className="relative bg-black border border-blue-500/30 p-8 rounded-[2rem] flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
+              <div className="absolute top-0 right-0">
+                <div className="bg-blue-600 text-white text-[8px] font-black px-4 py-1 uppercase tracking-widest rounded-bl-xl">Official Notice</div>
+              </div>
+              <div className="text-center md:text-left">
+                <h3 className="text-3xl font-black text-white uppercase tracking-tighter mb-1">THIS PLATFORM IS FOR SALE</h3>
+                <p className="text-blue-400 text-xs font-bold uppercase tracking-widest">Own this professional billing system today</p>
+              </div>
+              <div className="flex flex-col items-center md:items-end">
+                <span className="text-4xl font-black text-white mb-2">₹1,000</span>
+                <a
+                  href="https://www.instagram.com/krish_root_labs?igsh=YWczM2t3amUyZ3lp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all hover:scale-105"
+                >
+                  Contact @krish_root_labs
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <form onSubmit={(e) => {
           e.preventDefault();
           onSave({...formData, id: 'INV-' + Date.now().toString().slice(-6), date: new Date().toLocaleDateString('en-IN'), timestamp: Date.now()});

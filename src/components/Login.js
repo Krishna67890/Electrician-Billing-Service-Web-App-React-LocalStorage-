@@ -86,14 +86,23 @@ const Login = ({ onLogin }) => {
           <p className="text-gray-500 mt-2 text-sm font-bold uppercase tracking-widest">
              {loginMode === 'admin' ? 'System Management' : 'Surname Electricians Services'}
           </p>
-          {loginMode === 'admin' && (
-            <div className="mt-6 p-4 bg-blue-600/10 border border-blue-600/20 rounded-2xl text-[10px] text-blue-400 text-center font-bold uppercase tracking-wider leading-relaxed animate-pulse">
-              This website is for sale. If you want, contact the developer:
-              <a href="https://www.instagram.com/krish_root_labs?igsh=YWczM2t3amUyZ3lp" target="_blank" rel="noopener noreferrer" className="block mt-2 text-blue-300 hover:text-white underline transition-colors">
+
+          {/* MASSIVE SALE BANNER ON LOGIN */}
+          <div className="mt-8 w-full p-8 bg-blue-600 rounded-[2rem] border-2 border-white/20 shadow-[0_20px_50px_-10px_rgba(37,99,235,0.5)] text-center animate-pulse">
+            <h3 className="text-2xl font-black text-white uppercase tracking-tighter mb-2">
+              THIS WEBSITE IS FOR SALE
+            </h3>
+            <p className="text-blue-100 font-bold text-xs uppercase tracking-widest mb-4">
+              Get this complete billing platform
+            </p>
+            <div className="bg-black/20 p-4 rounded-xl mb-4">
+              <p className="text-white text-[10px] font-black uppercase tracking-widest mb-1">Contact Developer</p>
+              <a href="https://www.instagram.com/krish_root_labs?igsh=YWczM2t3amUyZ3lp" target="_blank" rel="noopener noreferrer" className="text-xl font-black text-yellow-400 hover:scale-105 transition-transform inline-block">
                 @krish_root_labs
               </a>
             </div>
-          )}
+            <p className="text-white font-black text-2xl">₹1,000 ONLY</p>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">

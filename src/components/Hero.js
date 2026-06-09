@@ -41,6 +41,46 @@ const Hero = ({ setActiveTab, invoices = [], currentUser }) => {
             )}
           </h1>
 
+          {/* MEGA SALE BANNER - HIGH VISIBILITY */}
+          <div className="relative group my-12">
+            <div className="absolute -inset-2 bg-gradient-to-r from-blue-600 via-cyan-400 to-blue-600 rounded-[3rem] blur-xl opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+            <div className="relative bg-black border-4 border-blue-500 p-12 rounded-[3rem] shadow-[0_0_100px_rgba(37,99,235,0.4)]">
+              <div className="flex flex-col items-center text-center">
+                <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-blue-500 text-white text-xs font-black uppercase tracking-[0.4em] mb-8">
+                  Premium Business Asset
+                </div>
+
+                <h2 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter mb-6 leading-none">
+                  THIS WEBSITE IS <br/>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">FOR SALE</span>
+                </h2>
+
+                <p className="text-gray-300 font-bold text-2xl mb-12 max-w-2xl leading-relaxed">
+                  Own this complete professional billing & business management system.
+                  Perfect for any service-based business.
+                </p>
+
+                <div className="flex flex-col md:flex-row items-center gap-8 w-full justify-center">
+                  <div className="flex flex-col items-center md:items-start">
+                    <p className="text-xs font-black text-blue-400 uppercase tracking-widest mb-1">One-Time Payment</p>
+                    <p className="text-5xl font-black text-white">₹1,000</p>
+                  </div>
+
+                  <div className="h-16 w-px bg-white/10 hidden md:block"></div>
+
+                  <a
+                    href="https://www.instagram.com/krish_root_labs?igsh=YWczM2t3amUyZ3lp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/btn relative inline-flex items-center justify-center px-12 py-6 font-black text-xl uppercase tracking-widest text-white transition-all duration-200 bg-blue-600 rounded-2xl hover:bg-blue-500 shadow-[0_20px_50px_-10px_rgba(37,99,235,0.5)] hover:-translate-y-1"
+                  >
+                    DM @krish_root_labs
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <p className="text-gray-400 text-lg md:text-xl font-medium max-w-xl mx-auto lg:mx-0 leading-relaxed">
             Leading Electrical Engineering & Smart Home Solutions in Nashik.
             Delivering excellence in every wire with 10+ years of trust.

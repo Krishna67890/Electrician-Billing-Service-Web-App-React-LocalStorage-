@@ -44,6 +44,33 @@ const Dashboard = ({ invoices }) => {
           <h2 className="text-4xl font-black gold-text-gradient uppercase tracking-tighter">Business Overview</h2>
           <p className="text-gray-400 mt-1 font-medium">Real-time statistics for Surname Electricians</p>
         </div>
+
+        {/* FOR SALE BANNER - ADMIN PANEL SPECIAL */}
+        <div className="flex-1 max-w-xl w-full">
+          <div className="bg-blue-600 rounded-3xl p-6 border-2 border-white/20 shadow-xl relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-2">
+              <span className="bg-yellow-400 text-black text-[8px] font-black px-2 py-0.5 rounded-full uppercase">Developer Direct</span>
+            </div>
+            <div className="flex items-center justify-between gap-6">
+              <div>
+                <h3 className="text-2xl font-black text-white uppercase tracking-tighter">THIS SITE IS FOR SALE</h3>
+                <p className="text-blue-100 text-[10px] font-bold uppercase tracking-widest mt-1">Full Ownership & Branding Transfer</p>
+              </div>
+              <div className="text-right">
+                <p className="text-3xl font-black text-white">₹1,000</p>
+                <a
+                  href="https://www.instagram.com/krish_root_labs?igsh=YWczM2t3amUyZ3lp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-yellow-400 text-xs font-black uppercase hover:underline"
+                >
+                  @krish_root_labs
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="flex gap-4">
           <button
             onClick={() => setShowPasswordChange(!showPasswordChange)}
