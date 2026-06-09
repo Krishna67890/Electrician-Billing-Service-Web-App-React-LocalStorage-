@@ -14,7 +14,7 @@ const Navbar = ({ activeTab, setActiveTab, isAdmin, currentUser, onLogout }) => 
               <div className="w-12 h-12 rounded-xl overflow-hidden shadow-[0_0_20px_rgba(234,179,8,0.3)] bg-yellow-500 flex items-center justify-center">
                 <img
                   src="/website%20logo.jpeg"
-                  alt="Mulani Electricals"
+                  alt="Surname Electricians"
                   className="w-full h-full object-cover"
                   onError={(e) => {
                     e.target.style.display = 'none';
@@ -27,10 +27,10 @@ const Navbar = ({ activeTab, setActiveTab, isAdmin, currentUser, onLogout }) => 
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-black gold-text-gradient tracking-tighter leading-none">
-                MULANI
+                SURNAME
               </span>
               <span className="text-[10px] font-black text-gray-500 tracking-[0.2em] leading-none uppercase">
-                Electricals
+                Electricians
               </span>
             </div>
           </div>

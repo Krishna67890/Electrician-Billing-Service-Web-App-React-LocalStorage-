@@ -10,7 +10,7 @@ const InvoicePreview = ({ invoice, onDelete, setActiveTab, isAdmin, onUpdateStat
   const whatsappHeader = isRequest ? 'SERVICE REQUEST' : 'INVOICE';
 
   const itemsList = invoice.items.map(item => `• ${item.name}: ${item.quantity} x ₹${item.rate} = ₹${item.amount}`).join('\n');
-  const whatsappMessage = `*MULANI ELECTRICALS - ${whatsappHeader}*\n--------------------------------\n*Customer:* ${invoice.customerName}\n*Date:* ${invoice.date}\n--------------------------------\n*Items:*\n${itemsList}\n--------------------------------\n*Subtotal:* ₹${invoice.subtotal}\n*Discount:* -₹${invoice.discount}\n*Grand Total: ₹${invoice.finalTotal}*\n--------------------------------\n${isRequest ? 'Please confirm this service request.' : 'Thank you for your business!'}`;
+  const whatsappMessage = `*SURNAME ELECTRICIANS - ${whatsappHeader}*\n--------------------------------\n*Customer:* ${invoice.customerName}\n*Date:* ${invoice.date}\n--------------------------------\n*Items:*\n${itemsList}\n--------------------------------\n*Subtotal:* ₹${invoice.subtotal}\n*Discount:* -₹${invoice.discount}\n*Grand Total: ₹${invoice.finalTotal}*\n--------------------------------\n${isRequest ? 'Please confirm this service request.' : 'Thank you for your business!'}`;
 
   const customerWhatsappUrl = `https://wa.me/91${invoice.customerPhone}?text=${encodeURIComponent(whatsappMessage)}`;
   const adminWhatsappUrl = `https://wa.me/917498045041?text=${encodeURIComponent(`*SHOP OWNER COPY - ${whatsappHeader} #${invoice.id}*\n\n` + whatsappMessage)}`;
@@ -23,10 +23,10 @@ const InvoicePreview = ({ invoice, onDelete, setActiveTab, isAdmin, onUpdateStat
           <p className="text-sm text-gray-500">#{invoice.id}</p>
         </div>
         <div className="text-right">
-          <h2 className="font-bold text-xl uppercase tracking-tighter">Sohail Mulani</h2>
-          <p className="text-sm">Electrician Specialist</p>
+          <h2 className="font-bold text-xl uppercase tracking-tighter">Surname Electricians</h2>
+          <p className="text-sm">Professional Electrical Solutions</p>
           <p className="text-sm">Nashik, Maharashtra</p>
-          <p className="text-sm">Phone: 7498045041</p>
+          <p className="text-sm">Service Support: 7498045041</p>
         </div>
       </div>
 
@@ -92,7 +92,7 @@ const InvoicePreview = ({ invoice, onDelete, setActiveTab, isAdmin, onUpdateStat
           </div>
           <p className="text-xs text-gray-400 italic">"Quality work is our signature."</p>
           <p className="text-[10px] text-gray-400 mt-2 font-bold uppercase tracking-widest">
-            {isRequest ? 'Thank you for your request!' : 'Thank you for choosing Sohail Mulani!'}
+            {isRequest ? 'Thank you for your request!' : 'Thank you for choosing Surname Electricians!'}
           </p>
         </div>
 
@@ -101,7 +101,7 @@ const InvoicePreview = ({ invoice, onDelete, setActiveTab, isAdmin, onUpdateStat
             <p className="text-[10px] font-black text-gray-400 uppercase mb-3 tracking-widest">Scan & Pay Now</p>
             <div className="bg-white p-2 rounded-xl shadow-sm border border-gray-100">
               <img
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`upi://pay?pa=7498045041@ybl&pn=Sohail%20Mulani&am=${invoice.finalTotal}&cu=INR`)}`}
+                src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`upi://pay?pa=7498045041@ybl&pn=Surname%20Electricians&am=${invoice.finalTotal}&cu=INR`)}`}
                 alt="Payment QR"
                 className="w-32 h-32"
               />

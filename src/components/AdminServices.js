@@ -31,7 +31,7 @@ const AdminServices = ({ services, onUpdate, products, onUpdateProducts, invoice
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `mulani_electricals_report_${new Date().toLocaleDateString()}.csv`);
+    link.setAttribute("download", `surname_electricians_report_${new Date().toLocaleDateString()}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -545,7 +545,7 @@ const AdminServices = ({ services, onUpdate, products, onUpdateProducts, invoice
                     const url = URL.createObjectURL(blob);
                     const link = document.createElement('a');
                     link.href = url;
-                    link.download = `mulani_electricals_backup_${new Date().toISOString().split('T')[0]}.json`;
+                    link.download = `surname_electricians_backup_${new Date().toISOString().split('T')[0]}.json`;
                     link.click();
                     URL.revokeObjectURL(url);
                   }}

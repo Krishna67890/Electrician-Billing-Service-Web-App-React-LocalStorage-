@@ -42,7 +42,7 @@ const Dashboard = ({ invoices }) => {
       <div className="flex flex-col md:flex-row justify-between items-end gap-4">
         <div>
           <h2 className="text-4xl font-black gold-text-gradient uppercase tracking-tighter">Business Overview</h2>
-          <p className="text-gray-400 mt-1 font-medium">Real-time statistics for Mulani Electricals</p>
+          <p className="text-gray-400 mt-1 font-medium">Real-time statistics for Surname Electricians</p>
         </div>
         <div className="flex gap-4">
           <button
@@ -220,7 +220,7 @@ const Dashboard = ({ invoices }) => {
           </div>
           <div className="mt-10 p-4 bg-yellow-500/5 rounded-2xl border border-yellow-500/10">
             <p className="text-sm text-yellow-500/80 italic font-medium">
-              "Mulani Electricals is growing! Keep up the professional service."
+              "Surname Electricians is growing! Keep up the professional service."
             </p>
           </div>
         </div>

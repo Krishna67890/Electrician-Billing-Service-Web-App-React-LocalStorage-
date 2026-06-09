@@ -35,8 +35,8 @@ const Hero = ({ setActiveTab, invoices = [], currentUser }) => {
               </>
             ) : (
               <>
-                SOHAIL <br />
-                <span className="gold-text-gradient">MULANI</span>
+                SURNAME <br />
+                <span className="gold-text-gradient">ELECTRICIANS</span>
               </>
             )}
           </h1>
@@ -60,7 +60,7 @@ const Hero = ({ setActiveTab, invoices = [], currentUser }) => {
               <div className="flex -space-x-3">
                 {[1, 2, 3].map(i => (
                   <div key={i} className="w-10 h-10 rounded-full border-2 border-black bg-gray-800 flex items-center justify-center text-[10px] font-bold text-yellow-500">
-                    S.M
+                    ⚡
                   </div>
                 ))}
               </div>
@@ -83,7 +83,7 @@ const Hero = ({ setActiveTab, invoices = [], currentUser }) => {
             <div className="flex flex-col items-center text-center space-y-6">
               <div className="w-48 h-48 bg-white p-3 rounded-[2rem] shadow-2xl relative overflow-hidden">
                 <img
-                  src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(`https://wa.me/917498045041?text=${encodeURIComponent("Respected Sohail... I want to talk about your service..")}`)}&bgcolor=ffffff`}
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(`https://wa.me/917498045041?text=${encodeURIComponent("I want to talk about your electrical services..")}`)}&bgcolor=ffffff`}
                   alt="Contact QR"
                   className="w-full h-full object-contain"
                 />
@@ -107,7 +107,7 @@ const Hero = ({ setActiveTab, invoices = [], currentUser }) => {
               </div>
 
               <a href="tel:7498045041" className="w-full py-4 bg-white/5 hover:bg-white/10 rounded-xl flex items-center justify-center gap-3 text-xs font-black uppercase tracking-widest transition-all">
-                <Phone size={16} className="text-yellow-500" /> Call Sohail Mulani
+                <Phone size={16} className="text-yellow-500" /> Call for Service
               </a>
             </div>
           </div>

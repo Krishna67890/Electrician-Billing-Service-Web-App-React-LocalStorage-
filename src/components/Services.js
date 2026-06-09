@@ -65,7 +65,7 @@ const Services = ({ services, currentUser, onInquiry }) => {
         </h2>
         <div className="w-24 h-1.5 gold-gradient mx-auto rounded-full"></div>
         <p className="mt-6 text-gray-400 max-w-2xl mx-auto font-medium">
-          Premium electrical solutions for all your requirements. Managed and executed by Sohail Mulani.
+          Premium electrical solutions for all your requirements. Managed and executed by certified experts.
         </p>
       </div>
 

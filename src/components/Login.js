@@ -14,11 +14,11 @@ const Login = ({ onLogin }) => {
     setError('');
 
     if (loginMode === 'admin') {
-      const adminEmail = localStorage.getItem('admin_email') || 'mh15sohail@gmail.com';
-      const adminPass = localStorage.getItem('admin_password') || '16301003';
+      const adminEmail = localStorage.getItem('admin_email') || 'admin@gmail.com';
+      const adminPass = localStorage.getItem('admin_password') || 'admin';
 
       if (email === adminEmail && password === adminPass) {
-        onLogin({ name: 'Sohail Mulani', email: adminEmail, role: 'admin', id: 'admin-001' });
+        onLogin({ name: 'Surname Electricians Admin', email: adminEmail, role: 'admin', id: 'admin-001' });
       } else {
         setError('Invalid Admin Credentials');
       }
@@ -26,7 +26,7 @@ const Login = ({ onLogin }) => {
     }
 
     if (isRegister) {
-      const users = JSON.parse(localStorage.getItem('mulani_users') || '[]');
+      const users = JSON.parse(localStorage.getItem('surname_users') || '[]');
       if (users.find(u => u.email === email)) {
         setError('User already exists with this email');
         return;
@@ -41,10 +41,10 @@ const Login = ({ onLogin }) => {
       };
 
       users.push(newUser);
-      localStorage.setItem('mulani_users', JSON.stringify(users));
+      localStorage.setItem('surname_users', JSON.stringify(users));
       onLogin(newUser);
     } else {
-      const users = JSON.parse(localStorage.getItem('mulani_users') || '[]');
+      const users = JSON.parse(localStorage.getItem('surname_users') || '[]');
       const user = users.find(u => u.email === email && u.password === password);
 
       if (user) {
@@ -84,8 +84,16 @@ const Login = ({ onLogin }) => {
             {loginMode === 'admin' ? 'Admin Login' : (isRegister ? 'Create Account' : 'User Login')}
           </h2>
           <p className="text-gray-500 mt-2 text-sm font-bold uppercase tracking-widest">
-             {loginMode === 'admin' ? 'System Management' : 'Mulani Electricals Services'}
+             {loginMode === 'admin' ? 'System Management' : 'Surname Electricians Services'}
           </p>
+          {loginMode === 'admin' && (
+            <div className="mt-6 p-4 bg-blue-600/10 border border-blue-600/20 rounded-2xl text-[10px] text-blue-400 text-center font-bold uppercase tracking-wider leading-relaxed animate-pulse">
+              This website is for sale. If you want, contact the developer:
+              <a href="https://www.instagram.com/krish_root_labs?igsh=YWczM2t3amUyZ3lp" target="_blank" rel="noopener noreferrer" className="block mt-2 text-blue-300 hover:text-white underline transition-colors">
+                @krish_root_labs
+              </a>
+            </div>
+          )}
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -115,7 +123,7 @@ const Login = ({ onLogin }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 focus:border-yellow-500 outline-none transition-all font-medium text-white"
-                placeholder={loginMode === 'admin' ? 'admin@mulani.com' : 'your@email.com'}
+                placeholder={loginMode === 'admin' ? 'admin@gmail.com' : 'your@email.com'}
                 required
               />
             </div>

@@ -6,25 +6,25 @@ const About = () => {
     <div className="max-w-6xl mx-auto py-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-6xl font-black mb-4 uppercase tracking-tighter">
-          Behind <span className="gold-text-gradient">Mulani Electricals</span>
+          Behind <span className="gold-text-gradient">Surname Electricians</span>
         </h2>
         <div className="w-32 h-2 gold-gradient mx-auto rounded-full"></div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* Profile: Sohail Mulani */}
+        {/* Profile: Surname Electricians */}
         <div className="glass p-8 md:p-12 rounded-[3rem] border border-white/5 hover:border-yellow-500/20 transition-all group">
           <div className="flex flex-col md:flex-row gap-8 items-start">
             <div className="w-32 h-32 rounded-[2rem] bg-yellow-500/10 flex items-center justify-center border border-yellow-500/20 group-hover:bg-yellow-500/20 transition-all shrink-0">
-              <User size={64} className="text-yellow-500" />
+              <Zap size={64} className="text-yellow-500" />
             </div>
             <div>
               <div className="inline-block px-4 py-1 rounded-full bg-yellow-500/10 text-yellow-500 text-[10px] font-black uppercase tracking-widest mb-4">
-                Founder & Specialist
+                Professional Services
               </div>
-              <h3 className="text-3xl font-black mb-4 uppercase tracking-tight">Sohail Mulani</h3>
+              <h3 className="text-3xl font-black mb-4 uppercase tracking-tight">Surname Electricians</h3>
               <p className="text-gray-400 font-medium leading-relaxed mb-6">
-                With over a decade of experience in the electrical industry, Sohail Mulani has established himself as a trusted name in Nashik. Specializing in high-end house wiring, smart home automation, and industrial electrical solutions, his mission is to provide safe, efficient, and modern electrical systems for every home and business.
+                With over a decade of experience in the electrical industry, Surname Electricians has established itself as a trusted name in Nashik. Specializing in high-end house wiring, smart home automation, and industrial electrical solutions, our mission is to provide safe, efficient, and modern electrical systems for every home and business.
               </p>
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center gap-2 text-xs font-bold text-gray-500">
@@ -38,26 +38,24 @@ const About = () => {
           </div>
         </div>
 
-        {/* Developer: Krishna Patil Rajput */}
-        <div className="glass p-8 md:p-12 rounded-[3rem] border border-white/5 hover:border-yellow-500/20 transition-all group">
+        {/* Developer: Krishna Root Labs */}
+        <div className="glass p-8 md:p-12 rounded-[3rem] border border-blue-500/30 bg-blue-600/5 transition-all group scale-105 shadow-[0_20px_50px_rgba(37,99,235,0.2)] sale-glow">
           <div className="flex flex-col md:flex-row gap-8 items-start">
             <div className="w-32 h-32 rounded-[2rem] bg-blue-500/10 flex items-center justify-center border border-blue-500/20 group-hover:bg-blue-500/20 transition-all shrink-0">
               <Code size={64} className="text-blue-500" />
             </div>
             <div>
-              <div className="inline-block px-4 py-1 rounded-full bg-blue-500/10 text-blue-500 text-[10px] font-black uppercase tracking-widest mb-4">
-                Lead Developer
+              <div className="inline-block px-4 py-1 rounded-full bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest mb-4 animate-pulse">
+                Website For Sale
               </div>
-              <h3 className="text-3xl font-black mb-4 uppercase tracking-tight">Krishna Patil Rajput</h3>
+              <h3 className="text-3xl font-black mb-1 uppercase tracking-tight text-glow-blue">Krishna Root Labs</h3>
+              <p className="text-blue-400 text-[10px] font-black uppercase tracking-widest mb-4">Pricing: ₹1,000 Only</p>
               <p className="text-gray-400 font-medium leading-relaxed mb-6">
-                A passionate software engineer specializing in building premium business management platforms. Krishna designed this application to streamline Mulani Electricals' operations, combining modern UI/UX with robust financial tracking and customer engagement tools.
+                This platform is currently available for purchase. If you are a business owner looking for a professional billing and storefront system, contact the developer below. Full customization and setup support provided.
               </p>
               <div className="flex gap-4">
-                <a href="https://github.com" target="_blank" rel="noreferrer" className="p-3 bg-white/5 rounded-xl hover:bg-white/10 transition-all text-gray-400 hover:text-white">
-                  <Github size={20} />
-                </a>
-                <a href="https://instagram.com" target="_blank" rel="noreferrer" className="p-3 bg-white/5 rounded-xl hover:bg-white/10 transition-all text-gray-400 hover:text-pink-500">
-                  <Instagram size={20} />
+                <a href="https://www.instagram.com/krish_root_labs?igsh=YWczM2t3amUyZ3lp" target="_blank" rel="noreferrer" className="flex items-center gap-3 px-6 py-3 bg-blue-600 rounded-xl hover:bg-blue-700 transition-all text-white font-black text-xs uppercase tracking-widest shadow-lg hover:scale-105 active:scale-95">
+                  <Instagram size={20} /> DM TO BUY
                 </a>
               </div>
             </div>

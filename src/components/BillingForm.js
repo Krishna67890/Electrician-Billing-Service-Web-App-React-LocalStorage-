@@ -16,7 +16,7 @@ const BillingForm = ({ onSave, catalog = [], isAdmin = false }) => {
   const [activeItemIndex, setActiveItemIndex] = useState(null);
 
   useEffect(() => {
-    const sessionUser = localStorage.getItem('mulani_current_user');
+    const sessionUser = localStorage.getItem('surname_current_user');
     if (sessionUser && !isAdmin) {
       const user = JSON.parse(sessionUser);
       setFormData(prev => ({ ...prev, customerName: user.name }));
