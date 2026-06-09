@@ -15,7 +15,7 @@ const Login = ({ onLogin }) => {
 
     if (loginMode === 'admin') {
       const adminEmail = localStorage.getItem('admin_email') || 'admin@gmail.com';
-      const adminPass = localStorage.getItem('admin_password') || 'admin';
+      const adminPass = localStorage.getItem('admin_password') || 'ADMIN';
 
       if (email === adminEmail && password === adminPass) {
         onLogin({ name: 'Surname Electricians Admin', email: adminEmail, role: 'admin', id: 'admin-001' });

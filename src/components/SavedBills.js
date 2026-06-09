@@ -27,50 +27,6 @@ const SavedBills = ({ invoices, onView, onToggleStatus, onDelete, isAdmin }) => 
         <div>
           <h2 className="text-4xl font-black gold-text-gradient uppercase tracking-tighter">Billing History</h2>
           <p className="text-gray-400 mt-1 font-medium">Manage and track your issued invoices</p>
-
-          {/* ULTRA-PROMINENT SALE BANNER - USER RECORDS */}
-          <div className="relative group my-12 w-full">
-            <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 via-purple-500 to-blue-600 rounded-[3.5rem] blur-2xl opacity-40 group-hover:opacity-60 transition duration-1000 animate-pulse"></div>
-            <div className="relative bg-black border-4 border-blue-500/50 p-12 rounded-[3.5rem] overflow-hidden">
-              <div className="absolute top-0 right-0">
-                <div className="bg-blue-500 text-black text-[10px] font-black px-8 py-2 uppercase tracking-[0.3em] rounded-bl-[2rem] shadow-lg">
-                  PREMIUM ASSET FOR SALE
-                </div>
-              </div>
-
-              <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-                <div className="text-center lg:text-left space-y-4">
-                  <h3 className="text-5xl md:text-6xl font-black text-white uppercase tracking-tighter leading-[0.85]">
-                    GET THIS <br />
-                    <span className="text-blue-500">BILLING SYSTEM</span>
-                  </h3>
-                  <p className="text-blue-400 font-black text-sm uppercase tracking-[0.4em] opacity-80">One-time offer • ₹1,000 ONLY</p>
-                </div>
-
-                <div className="flex flex-col items-center lg:items-end gap-6">
-                  <div className="text-center lg:text-right">
-                    <p className="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-2">Contact Developer via Instagram</p>
-                    <a
-                      href="https://www.instagram.com/krish_root_labs?igsh=YWczM2t3amUyZ3lp"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-4xl md:text-5xl font-black text-yellow-400 hover:text-white transition-colors underline underline-offset-8 decoration-blue-500"
-                    >
-                      @krish_root_labs
-                    </a>
-                  </div>
-                  <a
-                    href="https://www.instagram.com/krish_root_labs?igsh=YWczM2t3amUyZ3lp"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-blue-600 hover:bg-blue-500 text-white px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-[0.2em] transition-all hover:scale-105 shadow-[0_20px_50px_-10px_rgba(37,99,235,0.5)] flex items-center gap-3"
-                  >
-                    BUY NOW FOR ₹1,000
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
